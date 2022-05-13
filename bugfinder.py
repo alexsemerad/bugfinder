@@ -43,6 +43,7 @@ __version__ = "0.1"
             skipped while the parsing of the remaining landscape."""
 
 
+# * ── Bug Finder
 class BugFinder(object):
     def __init__(self, bug_filepath, landscape_filepath, ignore_overlap=False):
         self.count = 0
@@ -142,7 +143,7 @@ class BugFinder(object):
 
 # * ── Run Script
 if __name__ == "__main__":
-    bug_finder = BugFinder("bug.txt", "landscape.txt", True)
+    bug_finder = BugFinder("input/bug.txt", "input/landscape.txt", True)
     result = bug_finder.parse_landscape()
 
     print("Count: {}".format(result))
