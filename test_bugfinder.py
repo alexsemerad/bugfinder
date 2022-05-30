@@ -32,6 +32,12 @@ class TestBugFinder(unittest.TestCase):
         result = bug_finder.parse_landscape()
         self.assertEqual(result, 9)
 
+    # Hidden Insect // See Line 12, 89, 122, 145, 173, 180
+    def test_hidden_insect(self):
+        bug_finder = BugFinder("tests/hidden/bug.txt", "tests/hidden/landscape.txt", True)
+        result = bug_finder.parse_landscape()
+        self.assertEqual(result, 6)
+
     # Large Input // See Line 293 & 490
     def test_insectus_maximus(self):
         bug_finder = BugFinder("tests/big/bug.txt", "tests/big/landscape.txt", True)

@@ -65,6 +65,20 @@ class BugFinder(object):
 
         return grid
 
+    # ── Ignore Whitespace
+    def ignore_whitespace(self, src, target, nested=False):
+        # If Nested (list of lists), flatten it to a single list.
+        if nested:
+            src = [item for lst in src for item in lst]
+            target = [item for lst in target for item in lst]
+
+        for index, item in enumerate(src):
+            if item != " ":  # Skip Whitespaces in Src (Bug)!
+                if item != target[index]:  # Break / Return False if remaining characters don't match.
+                    return False
+
+        return True
+
     # ── Match Bug
     def match_bug(self, start_row_num, start_col_num):
         """Given the indication of a possible bug, it extracts the characters
@@ -97,7 +111,8 @@ class BugFinder(object):
                 coordinates.add((grid_row_num, col))
 
         # return Findings
-        if self.bug == grid:
+        # if self.bug == grid:
+        if self.ignore_whitespace(self.bug, grid, nested=True):
             if self.ignore_overlap:
                 self.coordinates.update(coordinates)
             return True
@@ -134,7 +149,8 @@ class BugFinder(object):
                         continue
 
                 # Find the first matching row of Bug in Landscape
-                if row[col_num:col_slice_end] == bug_head:
+                # if row[col_num:col_slice_end] == bug_head:
+                if self.ignore_whitespace(bug_head, row[col_num:col_slice_end]):
                     if self.match_bug(row_num, col_num):
                         self.count += 1
 
